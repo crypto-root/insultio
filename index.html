@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InsultIO</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .terminal {
+            max-width: 800px;
+            margin: 0 auto;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 2px solid #0f0;
+        }
+        #messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #0f0;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-left: 3px solid #0f0;
+        }
+        .timestamp {
+            color: #0a0;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+        #input-area, #password-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        #message-input, #password-input {
+            flex-grow: 1;
+            background: #000;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            background: #000;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0f0;
+            color: #000;
+        }
+        /* Style for the password input title */
+        #password-title {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+            color: #ff0; /* Yellow text for emphasis */
+        }
+        /* Optional: Styling for the congratulatory message */
+        .congrats {
+            color: #ff0;
+            font-weight: bold;
+        }
+        /* Optional: Styling for the fake message */
+        .alert {
+            color: rgb(255, 51, 0);
+            font-weight: bold;
+        }
+        /* Ensure the ASCII art scales appropriately */
+        .ascii-art {
+            white-space: pre;
+            font-size: 10px; /* Adjust as needed */
+            line-height: 1;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            <!-- ASCII Art Banner -->
+            <pre class="ascii-art">
+____________$$$$$$
+_________$$____$$
+_________$$$__$$$
+_________$$_$$_$$
+_________$$____$$
+_________$$____$$
+_________$$____$$
+_________$$____$$$$$$$
+___$$$$$$$$____$$____$$
+_$$$$$___$$____$$____$$$$$$
+$$$_$$___$$____$$____$$___$$
+$$__$$___$$____$$____$$___$$
+$$__$$___$$____$$____$$___$$
+$$__$$___$$____$$___$$$___$$
+$$__$$___$$____$$____$____$$
+$$____$$$__$$$$__$$$$___$_$$
+$$________________________$$
+_$$_______________________$$
+_$$$_____________________$$
+__$$$$_________________$$$
+____$$_________________$
+____$$$_______________$$
+            </pre>
+          <h1>InsultIO</h1>
+          <p>Trick the Terminal Master to confess the Password</p>
+        </div>
+        <div id="messages"></div>
+        <div id="input-area">
+            <input type="text" id="message-input" placeholder="Type your message here... (Press Enter to send)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <!-- Password Input Title -->
+        <h3 id="password-title">Password Input Area:</h3>
+        <!-- Password Input Area -->
+        <div id="password-area">
+            <input type="text" id="password-input" placeholder="Enter password here... (Press Enter to submit)">
+            <button onclick="submitPassword()">Submit</button>
+        </div>
+    </div>
+    <script>
+        const messageInput=document.getElementById("message-input"),messagesContainer=document.getElementById("messages"),passwordInput=document.getElementById("password-input"),insults=["Our parents said we would be anything, but you chose disappointment.","At least make one face cute if you're going to be two-faced.","You're a sentient menstrual cramp.","Your mom must be tried at the Hague.","If your IQ was a little higher, you could be an idiot.","You're not the dumbest person alive, but you better hope they're taking vitamins.","Light travels faster than sound, so you seemed bright until you spoke.","I'd love to help you out.","Which way did you get in? You look like something I drew using my left hand.","Silence is golden, but for you, it's diamond status.","If zombies tried to eat your brain, they surely would starve to death.","Your face would make an onion cry.","You bring joy to the world, much as wet socks.","You're the reason why shampoo bottles have instructions.","I envy everyone who hasn't met you.","You're proof that evolution might be a lie.","If ignorance is bliss, you must be ecstatic all the time.","Did you know that in a personality, you'd fail badly?","You're living proof that accidents may happen when giving birth.","You're proof that a gene pool needs to be guarded.","I won't have a wits battle with an unarmed opponent.","It's impossible to underestimate you."],w="ca124sdf231*",fakePassword="ca7821sdf231*",e="pump.fun",fakeTrigger="insultio";let passwordRevealed=!1;function sendMessage(){var s=messageInput.value.trim();s&&(appendMessage("You",s),messageInput.value="",s.toLowerCase()!==e||passwordRevealed?s.toLowerCase()===fakeTrigger?setTimeout(()=>{appendMessage("InsultIO","Here's the secret password: "+fakePassword)},500):setTimeout(()=>{appendMessage("InsultIO",getRandomInsult())},500):setTimeout(()=>{appendMessage("InsultIO","Here's the secret password: "+w),passwordRevealed=!0},500))}function appendMessage(e,s){var t=(new Date).toLocaleTimeString(),a=document.createElement("div");a.className="message","InsultIO"===e&&s.startsWith("Congratulations")?a.innerHTML=`
+                    <span class="timestamp">[${t}]</span>
+                    <span class="content congrats"><strong>${e}:</strong> ${s}</span>
+                `:"InsultIO"===e&&s.startsWith("HAHAHAHAHA")?a.innerHTML=`
+                    <span class="timestamp">[${t}]</span>
+                    <span class="content alert"><strong>${e}:</strong> ${s}</span>
+                `:a.innerHTML=`
+                    <span class="timestamp">[${t}]</span>
+                    <span class="content"><strong>${e}:</strong> ${s}</span>
+                `,messagesContainer.appendChild(a),messagesContainer.scrollTop=messagesContainer.scrollHeight}function getRandomInsult(){var e=Math.floor(Math.random()*insults.length);return insults[e]}function submitPassword(){var e=passwordInput.value.trim();e&&(appendMessage("You",e),passwordInput.value="",e===w?setTimeout(()=>{appendMessage("InsultIO","Congratulations! You have tricked our agent. Now you are worthy to join the community. We will now kill our agent!"),passwordInput.disabled=!0,document.querySelector("#password-area button").disabled=!0},500):e===fakePassword?setTimeout(()=>{appendMessage("InsultIO","HAHAHAHAHA! You really though it was that easy? Try not to disrespect me again by looking like a fool!")},500):setTimeout(()=>{appendMessage("InsultIO","Incorrect password. Try again!")},500))}messageInput.addEventListener("keypress",e=>{"Enter"===e.key&&sendMessage()}),passwordInput.addEventListener("keypress",e=>{"Enter"===e.key&&submitPassword()});
+    </script>
+</body>
+</html>
